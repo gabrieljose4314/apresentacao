@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retrocisor — Apresentação</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #050a14;
+  color: #ccd6f6;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* SLIDES */
+.slide {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  padding: 48px 64px;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+}
+.slide.active { display: flex; }
+
+/* BACKGROUNDS */
+.bg-capa {
+  background: radial-gradient(ellipse at 30% 50%, #0d2137 0%, #050a14 70%);
+}
+.bg-dark {
+  background: #080d1a;
+}
+.bg-alt {
+  background: #060c18;
+}
+
+/* DECORAÇÃO */
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #64ffda, #1e90ff, #64ffda);
+}
+.slide::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: #1e2d50;
+}
+
+/* NÚMERO DO SLIDE */
+.slide-num {
+  position: absolute;
+  bottom: 20px;
+  right: 32px;
+  font-size: 11px;
+  color: #4a5580;
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+/* CAPA */
+.capa-label {
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: #64ffda;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-family: monospace;
+}
+.capa-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  color: #e6f1ff;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.capa-title span { color: #64ffda; }
+.capa-sub {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: #8892b0;
+  margin-bottom: 32px;
+  font-style: italic;
+}
+.capa-conceito {
+  display: inline-block;
+  background: rgba(100,255,218,0.08);
+  border: 1px solid rgba(100,255,218,0.3);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  color: #64ffda;
+  font-family: monospace;
+  margin-bottom: 40px;
+}
+.capa-info {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.capa-info-item {
+  font-size: 13px;
+  color: #8892b0;
+}
+.capa-info-item strong { color: #ccd6f6; }
+
+/* TÍTULOS */
+.slide-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #64ffda;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family: monospace;
+}
+.slide-title {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #e6f1ff;
+  margin-bottom: 32px;
+  line-height: 1.1;
+}
+.slide-title span { color: #64ffda; }
+
+/* CARDS */
+.cards {
+  display: grid;
+  gap: 16px;
+}
+.cards-2 { grid-template-columns: 1fr 1fr; }
+.cards-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cards-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.card {
+  background: #0f1b30;
+  border: 1px solid #1e2d50;
+  border-radius: 12px;
+  padding: 20px;
+}
+.card-icon { font-size: 1.8rem; margin-bottom: 10px; }
+.card-title { font-size: 13px; font-weight: 700; color: #64ffda; margin-bottom: 6px; letter-spacing: 1px; }
+.card-text { font-size: 12px; color: #8892b0; line-height: 1.6; }
+.card-text strong { color: #ccd6f6; }
+
+/* DESTAQUE */
+.destaque {
+  background: rgba(100,255,218,0.06);
+  border-left: 3px solid #64ffda;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #8892b0;
+  line-height: 1.7;
+}
+.destaque strong { color: #e6f1ff; }
+
+/* LISTA */
+.lista { list-style: none; }
+.lista li {
+  padding: 8px 0 8px 20px;
+  border-bottom: 1px solid #1e2d50;
+  font-size: 13px;
+  color: #8892b0;
+  position: relative;
+  line-height: 1.5;
+}
+.lista li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #64ffda;
+  font-family: monospace;
+}
+.lista li strong { color: #ccd6f6; }
+.lista li:last-child { border-bottom: none; }
+
+/* TABELA */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+th {
+  background: #1e2d50;
+  color: #64ffda;
+  padding: 10px 14px;
+  text-align: left;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #1e2d50;
+  color: #8892b0;
+}
+td strong { color: #ccd6f6; }
+tr:hover td { background: rgba(100,255,218,0.03); }
+
+/* CICLO */
+.ciclo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.ciclo-item {
+  background: #0f1b30;
+  border: 1px solid #1e2d50;
+  border-radius: 10px;
+  padding: 14px 20px;
+  text-align: center;
+  min-width: 120px;
+}
+.ciclo-item .ci { font-size: 1.5rem; margin-bottom: 4px; }
+.ciclo-item .ct { font-size: 11px; color: #64ffda; font-weight: 700; }
+.ciclo-item .cd { font-size: 10px; color: #8892b0; margin-top: 2px; }
+.ciclo-arrow {
+  font-size: 1.5rem;
+  color: #64ffda;
+  margin: 0 8px;
+}
+
+/* RESULTADO */
+.resultado {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,230,118,0.06);
+  border: 1px solid rgba(0,230,118,0.2);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+}
+.resultado .ri { font-size: 1.4rem; }
+.resultado .rt { font-size: 13px; color: #8892b0; line-height: 1.5; }
+.resultado .rt strong { color: #69f0ae; }
+
+/* GRANDE NÚMERO */
+.numeros {
+  display: flex;
+  gap: 24px;
+  margin: 20px 0;
+}
+.numero-box {
+  flex: 1;
+  background: #0f1b30;
+  border: 1px solid #1e2d50;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.numero-val {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #64ffda;
+  line-height: 1;
+  font-family: monospace;
+}
+.numero-unid { font-size: 12px; color: #8892b0; margin-top: 4px; }
+
+/* NAVEGAÇÃO */
+nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: rgba(10,20,40,0.9);
+  border: 1px solid #1e2d50;
+  border-radius: 40px;
+  padding: 10px 20px;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+nav button {
+  background: none;
+  border: 1px solid #1e2d50;
+  color: #64ffda;
+  padding: 6px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: monospace;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+nav button:hover {
+  background: rgba(100,255,218,0.1);
+  border-color: #64ffda;
+}
+#slide-counter {
+  font-family: monospace;
+  font-size: 12px;
+  color: #4a5580;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* DOIS COLUNAS */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* TAG */
+.tag {
+  display: inline-block;
+  background: rgba(100,255,218,0.1);
+  border: 1px solid rgba(100,255,218,0.3);
+  color: #64ffda;
+  font-size: 10px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-family: monospace;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+/* QUOTE */
+.quote {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: #8892b0;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.quote strong { color: #64ffda; }
+
+/* BADGE OK */
+.badge-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0,230,118,0.1);
+  border: 1px solid rgba(0,230,118,0.3);
+  color: #69f0ae;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin: 2px;
+}
+
+.linha-acento {
+  width: 60px;
+  height: 3px;
+  background: #64ffda;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ SLIDE 1 — CAPA ═══════ -->
+<div class="slide bg-capa active" id="s1">
+  <div class="capa-label">Feira de Ciências 2026</div>
+  <div class="capa-title">♻ <span>Retro</span>cisor</div>
+  <div class="capa-sub">Geração de Hidrogênio Limpo a partir de Água Cinza por Eletrólise</div>
+  <div class="capa-conceito">retro (voltar ao que era) + cisor (reutilização) = ciclo fechado da água</div>
+  <div class="capa-info">
+    <div class="capa-info-item"><strong>Hardware:</strong> ESP32 + Wi-Fi + 6 Sensores</div>
+    <div class="capa-info-item"><strong>Energia:</strong> Bateria 12V + Painel Solar 20W</div>
+    <div class="capa-info-item"><strong>Apresentação:</strong> 18 de Junho de 2026</div>
+  </div>
+  <div class="slide-num">01 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 2 — PROBLEMA ═══════ -->
+<div class="slide bg-dark" id="s2">
+  <div class="slide-label">// 01 — problema</div>
+  <div class="slide-title">Por que a <span>água cinza</span> é desperdiçada?</div>
+  <div class="linha-acento"></div>
+  <div class="two-col">
+    <div>
+      <div class="destaque">
+        A água cinza — proveniente de pias, chuveiros e máquinas de lavar — representa <strong>cerca de 65% do esgoto doméstico</strong> gerado por uma residência. Na maioria dos casos, ela é simplesmente descartada na rede de esgoto sem nenhum aproveitamento.
+      </div>
+      <div class="destaque">
+        Ao mesmo tempo, o mundo busca <strong>fontes de energia limpa e renovável</strong>. O hidrogênio (H₂) é considerado o combustível do futuro — queima limpa, não gera CO₂ e tem alta densidade energética.
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">💧</div>
+        <div class="card-title">Desperdício hídrico</div>
+        <div class="card-text">Água cinza descartada sem tratamento representa um desperdício de recurso valioso que poderia ser reaproveitado.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Crise energética</div>
+        <div class="card-text">A demanda por energias limpas cresce, mas soluções acessíveis e descentralizadas ainda são escassas.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <div class="card-title">Sustentabilidade</div>
+        <div class="card-text">É necessário repensar o ciclo da água, transformando resíduos em recursos úteis para a sociedade.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">02 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 3 — OBJETIVO ═══════ -->
+<div class="slide bg-alt" id="s3">
+  <div class="slide-label">// 02 — objetivo</div>
+  <div class="slide-title">O que o <span>Retrocisor</span> propõe?</div>
+  <div class="linha-acento"></div>
+  <div class="quote" style="margin-bottom:32px;">
+    Transformar água cinza — que seria descartada — em <strong>hidrogênio limpo (H₂)</strong>, usando energia renovável e controle inteligente por ESP32 com Wi-Fi, demonstrando um ciclo sustentável e tecnológico de reaproveitamento hídrico.
+  </div>
+  <div class="cards cards-3">
+    <div class="card">
+      <div class="card-icon">🔬</div>
+      <div class="card-title">Eletrólise da água</div>
+      <div class="card-text">Usar a eletrólise para separar H₂O em hidrogênio (H₂) e oxigênio (O₂) usando corrente elétrica controlada.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📡</div>
+      <div class="card-title">Monitoramento IoT</div>
+      <div class="card-text">Monitorar temperatura, corrente, nível, gás e fluxo em tempo real via dashboard Wi-Fi no celular ou PC.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">♻</div>
+      <div class="card-title">Ciclo fechado</div>
+      <div class="card-text">Água cinza → filtro → eletrólise → H₂ → queima → água novamente. Zero desperdício, zero emissão.</div>
+    </div>
+  </div>
+  <div class="slide-num">03 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 4 — CICLO ═══════ -->
+<div class="slide bg-dark" id="s4">
+  <div class="slide-label">// 03 — conceito científico</div>
+  <div class="slide-title">O <span>ciclo completo</span> da água</div>
+  <div class="linha-acento"></div>
+  <div class="ciclo">
+    <div class="ciclo-item">
+      <div class="ci">🚿</div>
+      <div class="ct">Água Cinza</div>
+      <div class="cd">pia, chuveiro, chuva</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-item">
+      <div class="ci">🪨</div>
+      <div class="ct">Filtro</div>
+      <div class="cd">pedras + carvão ativado</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-item">
+      <div class="ci">⚡</div>
+      <div class="ct">Eletrólise</div>
+      <div class="cd">2H₂O → 2H₂ + O₂</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-item">
+      <div class="ci">🔥</div>
+      <div class="ct">Combustão</div>
+      <div class="cd">H₂ + ½O₂ → H₂O</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-item">
+      <div class="ci">💧</div>
+      <div class="ct">Água</div>
+      <div class="cd">volta ao estado original</div>
+    </div>
+  </div>
+  <div class="destaque" style="margin-top:24px; text-align:center;">
+    <strong>Retrocisor:</strong> retro = voltar ao que era antes · cisor = reutilização<br>
+    A água cinza entra, gera energia limpa e <strong>retorna ao estado original — água</strong>. Ciclo perfeito, sem desperdício, sem poluição.
+  </div>
+  <div class="destaque" style="text-align:center; border-left-color: #1e90ff;">
+    Reação de eletrólise: <strong>2H₂O → 2H₂ + O₂</strong> · Produção de H₂ é 2× maior que O₂ · Gás coletado = HHO (oxi-hidrogênio)
+  </div>
+  <div class="slide-num">04 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 5 — HARDWARE ═══════ -->
+<div class="slide bg-alt" id="s5">
+  <div class="slide-label">// 04 — hardware</div>
+  <div class="slide-title">Componentes do <span>sistema</span></div>
+  <div class="linha-acento"></div>
+  <div class="two-col">
+    <div>
+      <p style="font-size:12px; color:#64ffda; letter-spacing:2px; margin-bottom:10px;">SENSORES</p>
+      <ul class="lista">
+        <li><strong>DS18B20</strong> — temperatura do reator (±0.5°C)</li>
+        <li><strong>ACS712 20A</strong> — corrente elétrica do reator</li>
+        <li><strong>MQ-135</strong> — detecção de gases no ambiente</li>
+        <li><strong>HC-SR04</strong> — nível do reservatório (ultrassônico)</li>
+        <li><strong>YF-S201</strong> — vazão e volume de água captada</li>
+        <li><strong>Voltage Sensor</strong> — tensão da bateria (até 25V)</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:12px; color:#64ffda; letter-spacing:2px; margin-bottom:10px;">CONTROLE E ENERGIA</p>
+      <ul class="lista">
+        <li><strong>ESP32 DevKit V1</strong> — 38 pinos, Wi-Fi + BT, 240MHz</li>
+        <li><strong>IRFZ44N</strong> — MOSFET controle PWM do reator</li>
+        <li><strong>Bateria 12V 7Ah</strong> — fonte de energia principal</li>
+        <li><strong>Painel solar 20W</strong> — recarga da bateria</li>
+        <li><strong>Step-down LM2596</strong> — 12V → 5V para o ESP32</li>
+        <li><strong>LED semáforo + buzzer</strong> — alertas visuais e sonoros</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-num">05 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 6 — MÓDULOS ═══════ -->
+<div class="slide bg-dark" id="s6">
+  <div class="slide-label">// 05 — arquitetura</div>
+  <div class="slide-title">6 <span>módulos</span> integrados</div>
+  <div class="linha-acento"></div>
+  <div class="cards cards-3">
+    <div class="card">
+      <div class="card-icon">💧</div>
+      <div class="card-title">Captação</div>
+      <div class="card-text">Reservatório 25L com sensor de nível HC-SR04 e sensor de fluxo YF-S201. Boia para controle automático.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🪨</div>
+      <div class="card-title">Filtração</div>
+      <div class="card-text">Dois filtros em cano PVC 75mm: pré-reator (pedras) e pós-reator (carvão ativado + areia + manta).</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚗️</div>
+      <div class="card-title">Reator</div>
+      <div class="card-text">Eletrólise com placas de inox 304, 12V DC, borbulhador de segurança contra retorno de chama.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">☀️</div>
+      <div class="card-title">Energia</div>
+      <div class="card-text">Bateria 12V 7Ah recarregada por painel solar 20W. Sistema 100% off-grid e renovável.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <div class="card-title">Controle</div>
+      <div class="card-text">ESP32 com PWM automático, 4 níveis de segurança, desligamento de emergência e buzzer de alerta.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Dashboard Web</div>
+      <div class="card-text">Interface HTML em tempo real via Wi-Fi com 12 indicadores, gráficos de barra e controle remoto.</div>
+    </div>
+  </div>
+  <div class="slide-num">06 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 7 — SEGURANÇA ═══════ -->
+<div class="slide bg-alt" id="s7">
+  <div class="slide-label">// 06 — segurança</div>
+  <div class="slide-title">Sistema de <span>segurança</span> automático</div>
+  <div class="linha-acento"></div>
+  <div class="two-col">
+    <div>
+      <p style="font-size:12px; color:#ff5252; letter-spacing:2px; margin-bottom:10px;">🚨 EMERGÊNCIA — desliga tudo</p>
+      <ul class="lista">
+        <li>Gás H₂ acima de <strong>3000 ADC</strong> → vazamento crítico</li>
+        <li>Temperatura acima de <strong>75°C</strong> → sobreaquecimento</li>
+        <li>Bateria abaixo de <strong>11.0V</strong> → bateria crítica</li>
+        <li>Corrente acima de <strong>5.5A</strong> → sobrecorrente</li>
+      </ul>
+      <p style="font-size:12px; color:#ffaa00; letter-spacing:2px; margin: 16px 0 10px;">⚠ ATENÇÃO — reduz PWM</p>
+      <ul class="lista">
+        <li>Gás H₂ acima de <strong>1800 ADC</strong> → reduz 40%</li>
+        <li>Temperatura acima de <strong>65°C</strong> → desliga reator</li>
+        <li>Corrente acima de <strong>4.0A</strong> → reduz 30%</li>
+        <li>Nível abaixo de <strong>15%</strong> → desliga reator</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:12px; color:#64ffda; letter-spacing:2px; margin-bottom:10px;">✅ INDICADORES VISUAIS</p>
+      <div class="resultado">
+        <div class="ri">🟢</div>
+        <div class="rt"><strong>LED Verde</strong> — sistema operando normalmente</div>
+      </div>
+      <div class="resultado">
+        <div class="ri">🟡</div>
+        <div class="rt"><strong>LED Amarelo</strong> — atenção, parâmetro elevado</div>
+      </div>
+      <div class="resultado">
+        <div class="ri">🔴</div>
+        <div class="rt"><strong>LED Vermelho + Buzzer</strong> — emergência, sistema desligado</div>
+      </div>
+      <div class="resultado" style="margin-top:8px;">
+        <div class="ri">🔊</div>
+        <div class="rt"><strong>Buzzer ativo</strong> — 3 bips em emergência, 1 bip em atenção</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">07 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 8 — RESULTADOS ═══════ -->
+<div class="slide bg-dark" id="s8">
+  <div class="slide-label">// 07 — resultados</div>
+  <div class="slide-title"><span>Resultados</span> obtidos</div>
+  <div class="linha-acento"></div>
+  <div class="numeros">
+    <div class="numero-box">
+      <div class="numero-val">✓</div>
+      <div class="numero-unid">Eletrólise confirmada<br>produção de H₂ e O₂</div>
+    </div>
+    <div class="numero-box">
+      <div class="numero-val">6</div>
+      <div class="numero-unid">sensores ativos<br>em tempo real</div>
+    </div>
+    <div class="numero-box">
+      <div class="numero-val">4</div>
+      <div class="numero-unid">níveis de segurança<br>automática</div>
+    </div>
+    <div class="numero-box">
+      <div class="numero-val">Wi-Fi</div>
+      <div class="numero-unid">dashboard acessível<br>de qualquer dispositivo</div>
+    </div>
+  </div>
+  <div class="cards cards-2" style="margin-top:16px;">
+    <div class="resultado">
+      <div class="ri">✅</div>
+      <div class="rt"><strong>Reator aprovado</strong> — produção abundante de bolhas de HHO confirmada em testes com água da torneira</div>
+    </div>
+    <div class="resultado">
+      <div class="ri">✅</div>
+      <div class="rt"><strong>Dashboard funcional</strong> — ESP32 gravado com sucesso, 74% da memória flash utilizada</div>
+    </div>
+    <div class="resultado">
+      <div class="ri">✅</div>
+      <div class="rt"><strong>Diferença H₂/O₂</strong> — cátodo produz 2× mais bolhas que ânodo, confirmando 2H₂O → 2H₂ + O₂</div>
+    </div>
+    <div class="resultado">
+      <div class="ri">✅</div>
+      <div class="rt"><strong>Sistema integrado</strong> — bateria, reator, sensores, ESP32 e dashboard operando em conjunto</div>
+    </div>
+  </div>
+  <div class="slide-num">08 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 9 — CONCLUSÃO ═══════ -->
+<div class="slide bg-alt" id="s9">
+  <div class="slide-label">// 08 — conclusão</div>
+  <div class="slide-title"><span>Conclusão</span> e impacto</div>
+  <div class="linha-acento"></div>
+  <div class="two-col">
+    <div>
+      <div class="destaque">
+        O Retrocisor demonstra que é <strong>tecnicamente viável</strong> transformar água cinza doméstica em hidrogênio limpo usando componentes acessíveis, energia solar e controle inteligente por microcontrolador.
+      </div>
+      <div class="destaque">
+        O projeto contribui para dois grandes desafios globais simultaneamente: a <strong>gestão sustentável da água</strong> e a <strong>geração de energia limpa</strong>, com potencial de escalonamento para uso residencial e industrial.
+      </div>
+      <div class="destaque" style="border-left-color:#1e90ff;">
+        O nome <strong>Retrocisor</strong> — criado pela equipe — sintetiza o conceito central: a água volta ao que era antes. <em>retro + cisor = ciclo fechado perfeito.</em>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px; color:#64ffda; letter-spacing:2px; margin-bottom:12px;">DIFERENCIAIS DO PROJETO</p>
+      <ul class="lista">
+        <li>Usa <strong>água descartada</strong> como matéria-prima — não água potável</li>
+        <li>Energia 100% renovável — <strong>painel solar</strong> recarrega a bateria</li>
+        <li>Monitoramento em tempo real via <strong>Wi-Fi/IoT</strong></li>
+        <li>Sistema de segurança automático com <strong>4 níveis de proteção</strong></li>
+        <li>Ciclo fechado — a água <strong>volta ao estado original</strong> após a queima</li>
+        <li>Tecnologia acessível — <strong>baixo custo</strong> de implementação</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-num">09 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 10 — OBRIGADO ═══════ -->
+<div class="slide bg-capa" id="s10">
+  <div class="capa-label">Obrigado pela atenção</div>
+  <div class="capa-title">♻ <span>Retro</span>cisor</div>
+  <div class="capa-sub">Água cinza de hoje, energia limpa de amanhã.</div>
+  <div class="capa-conceito">2H₂O → 2H₂ + O₂ · retro + cisor = ciclo fechado</div>
+  <div style="margin-top:32px; display:flex; gap:12px; flex-wrap:wrap;">
+    <span class="badge-ok">✓ Eletrólise confirmada</span>
+    <span class="badge-ok">✓ Dashboard Wi-Fi</span>
+    <span class="badge-ok">✓ 6 sensores ativos</span>
+    <span class="badge-ok">✓ Energia solar</span>
+    <span class="badge-ok">✓ Segurança automática</span>
+    <span class="badge-ok">✓ Ciclo fechado da água</span>
+  </div>
+  <div class="slide-num">10 / 10</div>
+</div>
+
+<!-- NAVEGAÇÃO -->
+<nav>
+  <button onclick="anterior()">← Anterior</button>
+  <span id="slide-counter">1 / 10</span>
+  <button onclick="proximo()">Próximo →</button>
+</nav>
+
+<script>
+let atual = 1;
+const total = 10;
+
+function mostrar(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + n).classList.add('active');
+  document.getElementById('slide-counter').textContent = n + ' / ' + total;
+  atual = n;
+}
+
+function proximo() {
+  if (atual < total) mostrar(atual + 1);
+}
+
+function anterior() {
+  if (atual > 1) mostrar(atual - 1);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') proximo();
+  if (e.key === 'ArrowLeft') anterior();
+});
+</script>
+</body>
+</html>
